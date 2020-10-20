@@ -3,12 +3,6 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
 
-      - run:
-          name: Install Python Dependencies
-          command: |
-            pip install --user --no-cache-dir -r requirements.txt
-
-
 
 jobs:
   build-and-test:
@@ -17,7 +11,12 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
+      - run:
+          name: Install Python Dependencies
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt
       - python/save-cache
+      
       - run:
           name: Run Tests
           command: ~/.local/bin/pytest
